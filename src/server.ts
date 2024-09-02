@@ -1,23 +1,39 @@
-import mongoose from "mongoose";
-import app from "./app";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import "dotenv/config";
+import express from "express";
+import helmet from "helmet";
+import hpp from "hpp";
 import envConfig from "./configs/env.config";
+import routes from "./routes";
+import connectDB from "./utils/connect-db";
 
-export const startServer = () => {
-  const connectOptions = {
-    autoIndex: true,
-  } as mongoose.ConnectOptions;
+// Initialize app with express
+const app: express.Application | undefined = express();
 
-  mongoose
-    .connect(envConfig.MONGODB_CONNECTION, connectOptions)
-    .then(() => {
-      console.log("Database Connected");
-      app?.listen(envConfig.PORT, () => {
-        console.log(`Server Running ${envConfig.PORT}`);
-      });
-    })
-    .catch((err) => {
-      console.error("Database connection error:", err);
-    });
-};
+// Load App Middleware
+app.use(cors());
+app.use(helmet());
+app.use(hpp());
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+    crossOriginEmbedderPolicy: false,
+    crossOriginOpenerPolicy: false,
+  })
+);
 
-startServer();
+// Serve all static files inside public directory.
+app.use("/static", express.static("public"));
+
+// API routes
+app.use("/api", routes);
+
+connectDB();
+
+app.listen(envConfig.PORT, () => {
+  console.log(`Server Running ${envConfig.PORT}`);
+});
