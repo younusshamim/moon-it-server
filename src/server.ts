@@ -32,8 +32,10 @@ app.use("/static", express.static("public"));
 // API routes
 app.use("/api", routes);
 
-connectDB();
+const startServer = () => {
+  app.listen(envConfig.PORT, () => {
+    console.log(`Server Running ${envConfig.PORT}`);
+  });
+};
 
-app.listen(envConfig.PORT, () => {
-  console.log(`Server Running ${envConfig.PORT}`);
-});
+connectDB(startServer);

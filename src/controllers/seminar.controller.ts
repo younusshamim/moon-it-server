@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
-import { getSeminarsService } from "../services/seminar.service";
 
-export const getSeminarsController = (req: Request, res: Response) => {
-  getSeminarsService(req, res);
+export const getSeminars = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  res.status(200).send("List of seminars");
 };
