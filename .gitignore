@@ -1,0 +1,53 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# TypeScript
+*.tsbuildinfo
+
+# Yarn and pnpm
+.pnp/
+.pnp.js
+.yarn/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+.yarn/patches/
+.yarn/plugins/
+.yarn/releases/
+.yarn/sdks/
+.yarn/versions/
+.pnpm-store/
+
+# VSCode
+.vscode/
+
+# Jest
+coverage/
+
+# Build directory
+dist/
+build/
+
+# Temporary files
+.tmp/
+.temp/
+
+# Ignore specific files or directories (if applicable)
+.idea/
