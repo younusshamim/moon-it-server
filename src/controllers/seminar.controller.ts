@@ -12,6 +12,6 @@ export const getSeminars = async (
     const seminars = await Seminar.find();
     successHandler(res, seminars, "List of seminars retrieved successfully");
   } catch (error) {
-    errorHandler(res, "Error retrieving seminars");
+    errorHandler(res, error, "Error retrieving seminars");
   }
 };
