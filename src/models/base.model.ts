@@ -10,10 +10,3 @@ export interface BaseResponseModel<T = null> {
   message: string;
   code: number;
 }
-
-export interface HandleResponseOptions<T = null> {
-  status: "success" | "error";
-  data?: T | null;
-  message?: string;
-  code?: number;
-}
