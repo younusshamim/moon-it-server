@@ -5,12 +5,10 @@ const SeminarSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      max: 50,
     },
     contactNo: {
       type: String,
       required: true,
-      max: 15,
     },
     courseId: {
       type: Number,
@@ -20,11 +18,7 @@ const SeminarSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    address: {
-      type: String,
-      required: false,
-      max: 100,
-    },
+    address: String,
   },
   { timestamps: true }
 );
