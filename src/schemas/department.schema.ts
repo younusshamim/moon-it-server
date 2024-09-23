@@ -7,7 +7,14 @@ const DepartmentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    iconUrl: String,
+    banglaName: {
+      type: String,
+      required: true,
+    },
+    iconUrl: {
+      type: String,
+      required: true,
+    },
     description: String,
     displayOrder: Number,
     isActive: {

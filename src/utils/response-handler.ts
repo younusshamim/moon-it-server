@@ -4,7 +4,7 @@ import { BaseResponseModel } from "../models/base.model";
 export const successHandler = <T>(
   res: Response<BaseResponseModel<T>>,
   data: T,
-  message: string,
+  message: string = "Operation successful",
   code: number = 200
 ): void => {
   const response: BaseResponseModel<T> = {
@@ -16,17 +16,34 @@ export const successHandler = <T>(
   res.status(code).json(response);
 };
 
-export const errorHandler = (
-  res: Response<BaseResponseModel<null>>,
+export const errorHandler = <T>(
+  res: Response<BaseResponseModel<T>>,
   error: any,
-  message: string,
-  code: number = 500
+  defaultMessage: string = "An unexpected error occurred",
+  defaultCode: number = 500
 ): void => {
-  const response: BaseResponseModel<null> = {
+  let errorResponse: BaseResponseModel<null> = {
     data: null,
     status: "error",
-    message,
-    code,
+    message: defaultMessage,
+    code: defaultCode,
   };
-  res.status(code).json(response);
+
+  if (error instanceof Error) {
+    errorResponse.message = error.message || defaultMessage;
+
+    if ("statusCode" in error) {
+      errorResponse.code = (error as any).statusCode;
+    } else if ("code" in error) {
+      errorResponse.code = (error as any).code;
+    }
+  } else if (typeof error === "string") {
+    errorResponse.message = error;
+  }
+
+  if (errorResponse.code < 100 || errorResponse.code >= 600) {
+    errorResponse.code = defaultCode;
+  }
+
+  res.status(errorResponse.code).json(errorResponse as BaseResponseModel<T>);
 };

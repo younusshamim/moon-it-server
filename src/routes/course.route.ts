@@ -7,7 +7,8 @@ import {
   onCreate,
   onDelete,
   onEdit,
-} from "../controllers/deparment.controller";
+} from "../controllers/course.controller";
+
 const router = express.Router();
 
 router.get("/list", getSearchData);
