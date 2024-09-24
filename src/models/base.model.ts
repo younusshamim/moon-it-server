@@ -3,6 +3,8 @@ export interface BaseResponseModel<T = null> {
   status: "success" | "error";
   message: string;
   code: number;
+  validationErrors: Record<string, string>;
+  stack?: string;
 }
 
 export interface BasePageListModel<T> extends BaseListModel<T> {

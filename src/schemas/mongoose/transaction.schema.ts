@@ -3,7 +3,7 @@ import {
   BookOperation,
   PaymentMethod,
   TransactionRelatedType,
-} from "../configs/enums/transaction";
+} from "../../configs/enums/transaction";
 
 const TransactionSchema = new mongoose.Schema(
   {

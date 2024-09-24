@@ -1,24 +1,28 @@
 import express from "express";
+import departmentController from "../controllers/deparment.controller";
+import { validate } from "../middlewares/validate";
 import {
-  getCreateData,
-  getEditData,
-  getListData,
-  getSearchData,
-  onCreate,
-  onDelete,
-  onEdit,
-} from "../controllers/deparment.controller";
+  createDepartmentSchema,
+  updateDepartmentSchema,
+} from "../schemas/zod/department.validation";
+
 const router = express.Router();
 
-router.get("/list", getSearchData);
-router.post("/list", getListData);
+router
+  .route("/list")
+  .get(departmentController.getSearchData)
+  .post(departmentController.getListData);
 
-router.get("/create", getCreateData);
-router.post("/create", onCreate);
+router
+  .route("/create")
+  .get(departmentController.getCreateData)
+  .post(validate(createDepartmentSchema), departmentController.onCreate);
 
-router.get("/edit/:id", getEditData);
-router.put("/edit", onEdit);
+router
+  .route("/edit/:id")
+  .get(departmentController.getEditData)
+  .put(validate(updateDepartmentSchema), departmentController.onEdit);
 
-router.delete("/delete/:id", onDelete);
+router.delete("/delete/:id", departmentController.onDelete);
 
 export default router;

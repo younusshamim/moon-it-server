@@ -1,20 +1,19 @@
 import mongoose from "mongoose";
-import envConfig from "../configs/env.config";
+import env from "../configs/environment";
+import logger from "../logger";
 
-const connectDB = (callBack: () => void) => {
-  const connectOptions = {
+const connectDB = async (): Promise<void> => {
+  const connectOptions: mongoose.ConnectOptions = {
     autoIndex: true,
-  } as mongoose.ConnectOptions;
+  };
 
-  mongoose
-    .connect(envConfig.MONGODB_CONNECTION, connectOptions)
-    .then(() => {
-      console.log("Database Connected");
-      callBack();
-    })
-    .catch((err) => {
-      console.error("Database connection error:", err);
-    });
+  try {
+    await mongoose.connect(env.MONGODB_CONNECTION, connectOptions);
+    logger.info("Database Connected");
+  } catch (err) {
+    logger.error("Database connection error:", err);
+    throw err;
+  }
 };
 
 export default connectDB;

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Roles } from "../configs/enums/user";
+import { Roles } from "../../configs/enums/user";
 
 const RolePermissionSchema = new mongoose.Schema(
   {

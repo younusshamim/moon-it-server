@@ -1,20 +1,17 @@
-import { ErrorRequestHandler, NextFunction, Response } from "express";
-import ErrorModel from "../../models/error.model";
+import { ErrorRequestHandler } from "express";
+import baseResponseHandler from "../../utils/baseResponseHandler";
 
-const errorHandlerMiddleware: ErrorRequestHandler = (
-  error,
-  req,
-  res: Response<ErrorModel>,
-  next: NextFunction
-) => {
+const errorHandlerMiddleware: ErrorRequestHandler = (error, req, res, next) => {
   const statusCode = error.statusCode || 500;
-  res?.status(statusCode).send({
-    data: null,
-    status: "error",
-    message: error.message || "Internal Server Error",
-    code: statusCode,
-    stack: process.env.NODE_ENV === "production" ? "" : error.stack,
-  });
+  const message = error.message || "Internal Server Error";
+  baseResponseHandler(
+    res,
+    null,
+    message,
+    statusCode,
+    "error",
+    error.validationErrors
+  );
 };
 
 export default errorHandlerMiddleware;

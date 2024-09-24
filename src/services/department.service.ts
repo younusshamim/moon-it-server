@@ -3,14 +3,14 @@ import { searchModelCommonData } from "../configs/search-model";
 import { BasePageListModel } from "../models/base.model";
 import { DepartmentSearchModel } from "../models/department.model/department-search.model";
 import { DepartmentModel } from "../models/department.model/department.model";
-import { Department } from "../schemas/department.schema";
+import { Department } from "../schemas/mongoose/department.schema";
 import getOptions from "../utils/get-options";
 
-export async function createDepartment(department: DepartmentModel) {
+async function createDepartment(department: DepartmentModel) {
   return await Department.create(department);
 }
 
-export async function getDepartments(
+async function getDepartments(
   req: Request<any, any, DepartmentSearchModel>
 ): Promise<BasePageListModel<DepartmentModel[]>> {
   const {
@@ -34,19 +34,28 @@ export async function getDepartments(
   };
 }
 
-export async function getDepartmentsOptions() {
+async function getDepartmentsOptions() {
   const data = await Department.find({ isActive: true }, { _id: 1, name: 1 });
   return getOptions(data);
 }
 
-export async function getDepartmentById(id: string) {
+async function getDepartmentById(id: string) {
   return await Department.findById(id);
 }
 
-export async function editDepartment(department: DepartmentModel) {
+async function editDepartment(department: DepartmentModel) {
   return await Department.findByIdAndUpdate(department._id, department);
 }
 
-export async function deleteDepartment(id: string) {
+async function deleteDepartment(id: string) {
   return await Department.findByIdAndDelete(id);
 }
+
+export default {
+  createDepartment,
+  getDepartments,
+  getDepartmentsOptions,
+  getDepartmentById,
+  editDepartment,
+  deleteDepartment,
+};
