@@ -10,7 +10,8 @@ const errorHandlerMiddleware: ErrorRequestHandler = (error, req, res, next) => {
     message,
     statusCode,
     "error",
-    error.validationErrors
+    error.validationErrors,
+    error.stack
   );
 };
 

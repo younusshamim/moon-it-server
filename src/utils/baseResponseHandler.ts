@@ -16,8 +16,7 @@ const baseResponseHandler = <T>(
     message,
     code,
     validationErrors,
-    stack:
-      process.env.NODE_ENV === "production" ? undefined : new Error().stack,
+    stack: process.env.NODE_ENV === "production" ? undefined : stack,
   };
   res.status(code).json(response);
 };

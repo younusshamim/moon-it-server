@@ -1,8 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { BaseResponseModel } from "../models/base.model";
-import { DepartmentListModel } from "../models/department.model/department-list.model";
-import { DepartmentSearchModel } from "../models/department.model/department-search.model";
-import { DepartmentModel } from "../models/department.model/department.model";
 import { Department } from "../schemas/mongoose/department.schema";
 import departmentService from "../services/department.service";
 import baseResponseHandler from "../utils/baseResponseHandler";
@@ -11,27 +7,27 @@ import getSearchModelData from "../utils/getSearchModelData";
 
 const getSearchData = async (
   req: Request,
-  res: Response<BaseResponseModel<DepartmentSearchModel>>,
+  res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
     const data = getSearchModelData({
       name: "",
     });
-    // successHandler(res, data);
+    baseResponseHandler(res, data, "Search data fetched successfully");
   } catch (error) {
     next(error);
   }
 };
 
 const getListData = async (
-  req: Request<DepartmentSearchModel>,
-  res: Response<BaseResponseModel<DepartmentListModel>>,
+  req: Request,
+  res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
     const data = await departmentService.getDepartments(req);
-    // successHandler(res, { ...data });
+    baseResponseHandler(res, data, "List data fetched successfully");
   } catch (error) {
     next(error);
   }
@@ -39,31 +35,16 @@ const getListData = async (
 
 const getCreateData = async (
   req: Request,
-  res: Response<BaseResponseModel<DepartmentModel>>,
+  res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    const defaultValues = getSchemaDefaultValues<DepartmentModel>(
-      Department.schema
-    );
-    // successHandler(res, defaultValues);
+    const defaultValues = getSchemaDefaultValues(Department.schema);
+    baseResponseHandler(res, defaultValues, "Create data fetched successfully");
   } catch (error) {
     next(error);
   }
 };
-
-// const onCreate = async (
-//   req: Request,
-//   res: Response<BaseResponseModel<DepartmentModel>>,
-//   next: NextFunction
-// ) => {
-//   try {
-//     const data = await departmentService.createDepartment(req.body);
-// successHandler(res, data);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
 
 export const onCreate = async (
   req: Request,
@@ -78,26 +59,14 @@ export const onCreate = async (
   }
 };
 
-// const onCreate = async (
-//   req: Request,
-//   res: Response<BaseResponseModel<DepartmentModel>>
-// ): Promise<void> => {
-//   try {
-//     const data = await departmentService.createDepartment(req.body);
-// successHandler(res, data);
-//   } catch (error) {
-//     errorHandler(res, error);
-//   }
-// };
-
 const getEditData = async (
   req: Request,
-  res: Response<BaseResponseModel<DepartmentModel>>,
+  res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
     const data = await departmentService.getDepartmentById(req.params.id);
-    // successHandler(res, data);
+    baseResponseHandler(res, data, "Edit data fetched successfully");
   } catch (error) {
     next(error);
   }
@@ -105,12 +74,12 @@ const getEditData = async (
 
 const onEdit = async (
   req: Request,
-  res: Response<BaseResponseModel<DepartmentModel>>,
+  res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
     const data = await departmentService.editDepartment(req.body);
-    // successHandler(res, data);
+    baseResponseHandler(res, data, "Updated successfully");
   } catch (error) {
     next(error);
   }
@@ -118,12 +87,12 @@ const onEdit = async (
 
 const onDelete = async (
   req: Request,
-  res: Response<BaseResponseModel<DepartmentModel>>,
+  res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
     const data = await departmentService.deleteDepartment(req.params.id);
-    // successHandler(res, data);
+    baseResponseHandler(res, data, "Deleted successfully");
   } catch (error) {
     next(error);
   }
