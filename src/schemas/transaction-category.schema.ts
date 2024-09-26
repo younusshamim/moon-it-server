@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { TransactionCategoryType } from "../../configs/enums/transaction";
+import { TransactionCategoryType } from "../configs/enums/transaction";
 
 const TransactionCategorySchema = new mongoose.Schema(
   {

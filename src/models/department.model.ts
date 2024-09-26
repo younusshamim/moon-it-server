@@ -1,4 +1,4 @@
-import { DepartmentDto } from "../schemas/zod/department.validation";
+import { DepartmentDto } from "../schemas/department.schema";
 import { BaseModel, BasePageListModel, BaseSearchModel } from "./base.model";
 
 export interface DepartmentModel extends BaseModel, DepartmentDto {}

@@ -1,6 +1,5 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
-// import { config } from "dotenv";
 import "dotenv/config";
 import express, { Application } from "express";
 import rateLimit from "express-rate-limit";
@@ -15,9 +14,7 @@ import {
 } from "./middlewares/errors";
 import { addRequestId } from "./middlewares/requestId";
 import routes from "./routes";
-import connectDB from "./utils/connect-db";
-
-// config();
+import connectDB from "./utils/connectDB";
 
 const app: Application = express();
 
@@ -26,8 +23,8 @@ app.use(helmet());
 app.use(cors());
 app.use(
   rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
+    windowMs: 15 * 60 * 1000,
+    max: 100,
   })
 );
 

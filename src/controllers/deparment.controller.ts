@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { Department } from "../schemas/mongoose/department.schema";
+import message from "../configs/message";
+import { Department } from "../schemas/department.schema";
 import departmentService from "../services/department.service";
 import baseResponseHandler from "../utils/baseResponseHandler";
-import getSchemaDefaultValues from "../utils/get-schema-default-values";
+import getSchemaDefaultValues from "../utils/getSchemaDefaultValues";
 import getSearchModelData from "../utils/getSearchModelData";
 
 const getSearchData = async (
@@ -14,7 +15,7 @@ const getSearchData = async (
     const data = getSearchModelData({
       name: "",
     });
-    baseResponseHandler(res, data, "Search data fetched successfully");
+    baseResponseHandler(res, data, message.success.getSearch);
   } catch (error) {
     next(error);
   }
@@ -27,7 +28,7 @@ const getListData = async (
 ): Promise<void> => {
   try {
     const data = await departmentService.getDepartments(req);
-    baseResponseHandler(res, data, "List data fetched successfully");
+    baseResponseHandler(res, data, message.success.getList);
   } catch (error) {
     next(error);
   }
@@ -40,7 +41,7 @@ const getCreateData = async (
 ): Promise<void> => {
   try {
     const defaultValues = getSchemaDefaultValues(Department.schema);
-    baseResponseHandler(res, defaultValues, "Create data fetched successfully");
+    baseResponseHandler(res, defaultValues, message.success.getCreate);
   } catch (error) {
     next(error);
   }
@@ -53,7 +54,7 @@ export const onCreate = async (
 ) => {
   try {
     const data = await departmentService.createDepartment(req.body);
-    baseResponseHandler(res, data, "Created successfully", 201);
+    baseResponseHandler(res, data, message.success.create, 201);
   } catch (error) {
     next(error);
   }
@@ -66,7 +67,7 @@ const getEditData = async (
 ): Promise<void> => {
   try {
     const data = await departmentService.getDepartmentById(req.params.id);
-    baseResponseHandler(res, data, "Edit data fetched successfully");
+    baseResponseHandler(res, data, message.success.getEdit);
   } catch (error) {
     next(error);
   }
@@ -79,7 +80,7 @@ const onEdit = async (
 ): Promise<void> => {
   try {
     const data = await departmentService.editDepartment(req.body);
-    baseResponseHandler(res, data, "Updated successfully");
+    baseResponseHandler(res, data, message.success.edit);
   } catch (error) {
     next(error);
   }
@@ -92,7 +93,7 @@ const onDelete = async (
 ): Promise<void> => {
   try {
     const data = await departmentService.deleteDepartment(req.params.id);
-    baseResponseHandler(res, data, "Deleted successfully");
+    baseResponseHandler(res, data, message.success.delete);
   } catch (error) {
     next(error);
   }

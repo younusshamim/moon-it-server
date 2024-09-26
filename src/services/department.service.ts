@@ -6,9 +6,8 @@ import {
   DepartmentModel,
   DepartmentSearchModel,
 } from "../models/department.model";
-import { Department } from "../schemas/mongoose/department.schema";
-import { DepartmentDto } from "../schemas/zod/department.validation";
-import getOptions from "../utils/get-options";
+import { Department, DepartmentDto } from "../schemas/department.schema";
+import getOptions from "../utils/getOptions";
 
 async function createDepartment(department: DepartmentDto) {
   return await Department.create(department);

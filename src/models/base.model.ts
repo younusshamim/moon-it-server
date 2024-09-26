@@ -3,7 +3,7 @@ export interface BaseResponseModel<T = null> {
   status: "success" | "error";
   message: string;
   code: number;
-  validationErrors: Record<string, string>;
+  validationErrors: Record<string, ValidationErrorDetail>;
   stack?: string;
 }
 
@@ -34,4 +34,18 @@ export interface BaseListModel<T> {
 export interface SelectOption {
   label: string;
   value: string | number;
+}
+
+export interface ValidatorErrorProperties {
+  message: string;
+  type: string;
+  path: string;
+}
+
+export interface ValidationErrorDetail {
+  name: string;
+  message: string;
+  properties: ValidatorErrorProperties;
+  kind: string;
+  path: string;
 }

@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { BaseResponseModel } from "../models/base.model";
+import { BaseResponseModel, ValidationErrorDetail } from "../models/base.model";
 
 const baseResponseHandler = <T>(
   res: Response<BaseResponseModel<T>>,
@@ -7,14 +7,14 @@ const baseResponseHandler = <T>(
   message: string = "Operation successful",
   code: number = 200,
   status: "success" | "error" = "success",
-  validationErrors: Record<string, string> = {},
+  validationErrors: Record<string, ValidationErrorDetail> = {},
   stack?: string
 ): void => {
   const response: BaseResponseModel<T> = {
     data,
-    status,
     message,
     code,
+    status,
     validationErrors,
     stack: process.env.NODE_ENV === "production" ? undefined : stack,
   };
