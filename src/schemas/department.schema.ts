@@ -1,5 +1,5 @@
 import mongoose, { InferSchemaType } from "mongoose";
-import message from "../configs/message";
+import message from "../configs/messages";
 
 // Departments Schema
 const DepartmentSchema = new mongoose.Schema(

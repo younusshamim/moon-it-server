@@ -1,4 +1,4 @@
-const message = {
+const messages = {
   success: {
     getSearch: "Search data fetched successfully",
     getList: "List data fetched successfully",
@@ -9,7 +9,7 @@ const message = {
     delete: "Deleted successfully",
   },
   error: {
-    create: "Failed to create",
+    server: "Failed to process request",
     update: "Failed to update",
     delete: "Failed to delete",
   },
@@ -50,4 +50,4 @@ const message = {
   notExtended: "Not extended",
 };
 
-export default message;
+export default messages;

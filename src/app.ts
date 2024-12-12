@@ -8,10 +8,8 @@ import { Server } from "http";
 import morgan from "morgan";
 import env from "./configs/environment";
 import logger from "./logger";
-import {
-  errorHandlerMiddleware,
-  notFoundMiddleware,
-} from "./middlewares/errors";
+import errorHandlerMiddleware from "./middlewares/errors/errorHandler";
+import notFoundMiddleware from "./middlewares/errors/notFound";
 import { addRequestId } from "./middlewares/requestId";
 import routes from "./routes";
 import connectDB from "./utils/connectDB";

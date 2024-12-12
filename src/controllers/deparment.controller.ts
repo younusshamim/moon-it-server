@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import message from "../configs/message";
+import message from "../configs/messages";
 import { Department } from "../schemas/department.schema";
 import departmentService from "../services/department.service";
 import baseResponseHandler from "../utils/baseResponseHandler";
